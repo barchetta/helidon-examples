@@ -48,4 +48,4 @@ mvn ${MAVEN_ARGS} --version
 mvn -B ${MAVEN_ARGS} \
     -f "${WS_DIR}"/pom.xml \
     -Dmaven.test.failure.ignore=true \
-    clean install
+    clean package
