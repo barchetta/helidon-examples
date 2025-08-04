@@ -22,6 +22,7 @@ import io.helidon.config.ConfigSources;
 import io.helidon.dbclient.DbClient;
 import io.helidon.dbclient.health.DbClientHealthCheck;
 import io.helidon.logging.common.LogConfig;
+import io.helidon.service.registry.Services;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.WebServerConfig;
 import io.helidon.webserver.http.HttpRouting;
@@ -72,7 +73,7 @@ public final class Main {
 
         // By default, this will pick up application.yaml from the classpath
         Config config = mongo ? Config.create(ConfigSources.classpath(MONGO_CFG)) : Config.create();
-        Config.global(config);
+        Services.set(Config.class, config);
 
         WebServer server = setupServer(WebServer.builder())
                 .build()
