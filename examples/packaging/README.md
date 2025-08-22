@@ -48,7 +48,7 @@ You'll see the `Class-Path` entry contains all jar files that are in the `libs` 
 
 To create a zip file of your thin jar application you can use zip:
 
-```
+```shell
 (cd target; zip -r helidon-examples-packaging-thin.zip helidon-examples-packaging.jar libs/)
 ```
 
