@@ -20,7 +20,7 @@ java -jar target/helidon-examples-packaging.jar
 ```
 ## Exercise the application
 
-```
+```shell
 curl -X GET http://localhost:8080/simple-greet
 Hello World!
 ```
