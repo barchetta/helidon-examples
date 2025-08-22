@@ -152,7 +152,7 @@ form of a fat jar) or a special class loader to handle the uber jar variant (whi
 Both of these add complexity.
 
 Flattening of jars is also problematic because it can significantly alter the behavior
-of your program in non-obvious was. For example in an MP application if
+of your program in non-obvious ways. For example in an MP application if
 bean-discovery-mode="all" is used, all classes from all jars would be
 discovered as beans.
 
