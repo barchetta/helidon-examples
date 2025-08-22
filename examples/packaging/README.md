@@ -3,7 +3,7 @@
 
 Helidon supports three packaging options for your application:
 
-1. Skinny Jar (the default)
+1. Thin Jar (the default)
 2. JLink Custom Image
 3. Native Image
 
@@ -16,7 +16,7 @@ It also shows how to build a file distribution for each of the formats.
 
 ```bash
 mvn package
-java -jar target/application-se.jar
+java -jar target/helidon-examples-packaging.jar
 ```
 ## Exercise the application
 
@@ -25,12 +25,12 @@ curl -X GET http://localhost:8080/simple-greet
 Hello World!
 ```
 
-## Skinny Jar
+## Thin Jar
 
-The default packaging for a Helidon application is the skinny jar. In the above Build and Run
-step you used a skinny jar. In this packaging:
+The default packaging for a Helidon application is the thin jar. In the above Build and Run
+step you used a thin jar. In this packaging:
 
-1. Your application code, and only your application code, is in the application jar (`target/application-se.jar`).
+1. Your application code, and only your application code, is in the application jar (`target/helidon-examples-packaging.jar`).
 2. The application's runtime dependencies are in the `target/libs` directory.
 3. The application jar has entries in `META-INF/MANIFEST.MF` that specify:
    - The application's Main-Class
@@ -39,38 +39,38 @@ step you used a skinny jar. In this packaging:
 To see how this looks in the `MANIFEST.MF` file, run:
 
 ```
-unzip -p target/application-se.jar META-INF/MANIFEST.MF
+unzip -p target/helidon-examples-packaging.jar META-INF/MANIFEST.MF
 ```
 
 You'll see the `Class-Path` entry contains all jar files that are in the `libs` directory.
 
-#### Skinny Distribution
+#### Thin Zip Distribution
 
-To create a zip file of your skinny jar application you can use zip:
+To create a zip file of your thin jar application you can use zip:
 
 ```
-(cd target; zip -r application-se-skinny.zip application-se.jar libs/)
+(cd target; zip -r helidon-examples-packaging-thin.zip helidon-examples-packaging.jar libs/)
 ```
 
 You can now copy this zip elsewhere and "install" and run it:
 
 ```
-unzip application-se-skinny.zip
-java -jar application-se.jar
+unzip helidon-examples-packaging.zip
+java -jar helidon-examples-packaging.jar
 ```
 
 As an alternative to the `zip` command this example also demonstrates how to use the
 `maven-assembly-plugin` to create the distribution zip. This uses:
 
-1. The `skinny-distro` profile in the [pom.xml](./pom.xml) to configure the plugin.
-2. The assembly descriptor in [skinny-assembly.xml](./src/main/assembly/skinny-assembly.xml)
+1. The `thin-zip` profile in the [pom.xml](./pom.xml) to configure the plugin.
+2. The assembly descriptor in [thin-assembly.xml](./src/main/assembly/thin-assembly.xml)
 
 To generate the zip using the `maven-assembly-plugin`:
 
 ```
-mvn package -Pskinny-distro
+mvn package -Pthin-zip
 ```
-This will create `target/appplication-se-skinny.zip` just like we did with the `zip` command.
+This will create `target/appplication-se-thin.zip` just like we did with the `zip` command.
 
 ## Jlink Image
 
@@ -82,42 +82,42 @@ To build and run:
 
 ```shell
 mvn package -Pjlink-image
-target/application-se-jri/bin/start
+target/helidon-examples-packaging-jri/bin/start
 ```
 
-If you look in `target/application-se-jri` you will see:
+If you look in `target/helidon-examples-packaging-jri` you will see:
 
-1. `app`: this contains your application jar and dependencies, just like the skinny jar case.
+1. `app`: this contains your application jar and dependencies, just like the thin jar case.
 2. `bin`: this contains the start script for your application plus some JDK commands.
 3. `lib/start.jsa`: this is a CDS archive for your application. It makes starting it a bit faster.
 4. The rest of the files are the JDK files needed to run your application.
 
-### JLink Distribution
+### JLink Zip Distribution
 
 To create a zip file of your jlink application you can use zip:
 
 ```
-(cd target; zip -r application-se-jlink.zip application-se-jri )
+(cd target; zip -r helidon-examples-packaging-jlink.zip helidon-examples-packaging-jri )
 ```
 
 You can now copy this zip elsewhere and "install" and run it:
 
 ```
-unzip application-se-jlink.zip
-application-se-jri/bin/start
+unzip helidon-examples-packaging-jlink.zip
+helidon-examples-packaging-jri/bin/start
 ```
 
 As an alternative to the `zip` command this example demonstrates how to use the
 `maven-assembly-plugin` to create the distribution zip. This uses:
 
-1. The `jlink-distro` profile in the [pom.xml](./pom.xml) to configure the plugin.
+1. The `jlink-zip` profile in the [pom.xml](./pom.xml) to configure the plugin.
 2. The assembly descriptor in [jlink-assembly.xml](./src/main/assembly/jlink-assembly.xml)
 
 To generate the zip using the `maven-assembly-plugin`:
 
 ```
 # This assume you previously built the image with -Pjlink-image
-mvn package -Pjlink-distro
+mvn package -Pjlink-zip
 ```
 This will create `target/appplication-se-jlink.zip` just like we did with the `zip` command.
 
@@ -131,13 +131,13 @@ To build and run:
 
 ```shell
 mvn package -Pnative-image
-target/application-se
+target/helidon-examples-packaging
 ```
 
 Your application is native executable. You can see that by running:
 
 ```shell
-file target/application-se
+file target/helidon-examples-packaging
 ```
 
 ### Native image Distribution
@@ -146,10 +146,15 @@ Your application is a single executable file so no distribution archive is requi
 
 ## Fat Jar
 
-Fat jars are application jars that contain your application code plus its runtime dependencies.
+Fat jars are application jars that contain your application code plus all of its runtime dependencies.
 Fat jars are not recommended because they require either merging of jar files (the basic
 form of a fat jar) or a special class loader to handle the uber jar variant (which is a jar of jars).
 Both of these add complexity.
+
+Flattening of jars is also problematic because it can significantly alter the behavior
+of your program in non-obvious was. For example in an MP application if
+bean-discovery-mode="all" is used, all classes from all jars would be
+discovered as beans.
 
 That said, it is possible to create a fat Jar for your Helidon application.
 
@@ -158,7 +163,7 @@ That said, it is possible to create a fat Jar for your Helidon application.
 This example uses the `maven-assembly-plugin` with the `helidon-assembly-extension` to create a fat jar. 
 Specifically see:
 
-1. The `fat-distro` profile in the [pom.xml](./pom.xml) to configure the plugin.
+1. The `fat-jar` profile in the [pom.xml](./pom.xml) to configure the plugin.
 2. The assembly descriptor in [fat-assembly.xml](./src/main/assembly/fat-assembly.xml). 
 
 Note that the plugin and descriptor use the `helidon-assembly-extension` which handles merging
@@ -167,9 +172,9 @@ of Helidon json metadata that resides in Helidon jar files.
 To generate the fat jar:
 
 ```
-mvn package -Pfat-distro
+mvn package -Pfat-jar
 ```
-This will create `target/application-se-fat.jar` which can be run with:
+This will create `target/helidon-examples-packaging-fat.jar` which can be run with:
 ```shell
-java -jar target/appplication-se-fat.jar
+java -jar target/helidon-examples-packaging-fat.jar
 ```

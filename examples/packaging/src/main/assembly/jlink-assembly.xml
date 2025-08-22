@@ -26,7 +26,7 @@
       <directory>${project.basedir}/target</directory>
       <outputDirectory></outputDirectory>
       <includes>
-        <include>application-se-jri/**</include>
+        <include>helidon-examples-packaging-jri/**</include>
       </includes>
     </fileSet>
   </fileSets>
