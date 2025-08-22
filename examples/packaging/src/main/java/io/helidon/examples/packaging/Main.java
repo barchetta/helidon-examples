@@ -16,14 +16,10 @@
 
 package io.helidon.examples.packaging;
 
-
-import io.helidon.logging.common.LogConfig;
 import io.helidon.config.Config;
+import io.helidon.logging.common.LogConfig;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.http.HttpRouting;
-
-
-
 
 /**
  * The application main class.
@@ -43,7 +39,6 @@ public class Main {
      * @param args command line arguments.
      */
     public static void main(String[] args) {
-        
         // load logging configuration
         LogConfig.configureRuntime();
 
@@ -69,6 +64,6 @@ public class Main {
     static void routing(HttpRouting.Builder routing) {
         routing
                .register("/greet", new GreetService())
-               .get("/simple-greet", (req, res) -> res.send("Hello World!")); 
+               .get("/simple-greet", (req, res) -> res.send("Hello World!"));
     }
 }

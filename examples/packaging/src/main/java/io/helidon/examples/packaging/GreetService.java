@@ -15,7 +15,6 @@
  */
 package io.helidon.examples.packaging;
 
-import java.util.Collections;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.helidon.config.Config;
