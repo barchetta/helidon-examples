@@ -14,7 +14,7 @@ It also shows how to build a file distribution for each of the formats.
 
 ## Build and Run
 
-```bash
+```shell
 mvn package
 java -jar target/helidon-examples-packaging.jar
 ```
