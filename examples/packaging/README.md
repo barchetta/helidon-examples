@@ -134,7 +134,7 @@ mvn package -Pnative-image
 target/helidon-examples-packaging
 ```
 
-Your application is native executable. You can see that by running:
+Your application is a native executable. You can see that by running:
 
 ```shell
 file target/helidon-examples-packaging
