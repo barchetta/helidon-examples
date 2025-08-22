@@ -102,7 +102,7 @@ To create a zip file of your jlink application you can use zip:
 
 You can now copy this zip elsewhere and "install" and run it:
 
-```
+```shell
 unzip helidon-examples-packaging-jlink.zip
 helidon-examples-packaging-jri/bin/start
 ```
