@@ -38,7 +38,7 @@ step you used a thin jar. In this packaging:
 
 To see how this looks in the `MANIFEST.MF` file, run:
 
-```
+```shell
 unzip -p target/helidon-examples-packaging.jar META-INF/MANIFEST.MF
 ```
 
