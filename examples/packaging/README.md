@@ -171,7 +171,7 @@ of Helidon json metadata that resides in Helidon jar files.
 
 To generate the fat jar:
 
-```
+```shell
 mvn package -Pfat-jar
 ```
 This will create `target/helidon-examples-packaging-fat.jar` which can be run with:
