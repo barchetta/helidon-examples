@@ -54,7 +54,7 @@ To create a zip file of your thin jar application you can use zip:
 
 You can now copy this zip elsewhere and "install" and run it:
 
-```
+```shell
 unzip helidon-examples-packaging.zip
 java -jar helidon-examples-packaging.jar
 ```
