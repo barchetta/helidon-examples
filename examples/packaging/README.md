@@ -146,9 +146,9 @@ Your application is a single executable file so no distribution archive is requi
 
 ## Fat Jar
 
-Fat jars are application jars that contains your application code plus its runtime dependencies.
+Fat jars are application jars that contain your application code plus its runtime dependencies.
 Fat jars are not recommended because they require either merging of jar files (the basic
-form of a fat jar) or a special class to handle the uber jar variant (which is a jar of jars).
+form of a fat jar) or a special class loader to handle the uber jar variant (which is a jar of jars).
 Both of these add complexity.
 
 That said, it is possible to create a fat Jar for your Helidon application.
