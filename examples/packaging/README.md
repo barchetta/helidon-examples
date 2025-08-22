@@ -96,7 +96,7 @@ If you look in `target/helidon-examples-packaging-jri` you will see:
 
 To create a zip file of your jlink application you can use zip:
 
-```
+```shell
 (cd target; zip -r helidon-examples-packaging-jlink.zip helidon-examples-packaging-jri )
 ```
 
