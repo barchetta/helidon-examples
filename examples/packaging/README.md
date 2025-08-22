@@ -67,7 +67,7 @@ As an alternative to the `zip` command this example also demonstrates how to use
 
 To generate the zip using the `maven-assembly-plugin`:
 
-```
+```shell
 mvn package -Pthin-zip
 ```
 This will create `target/appplication-se-thin.zip` just like we did with the `zip` command.
