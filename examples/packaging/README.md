@@ -115,7 +115,7 @@ As an alternative to the `zip` command this example demonstrates how to use the
 
 To generate the zip using the `maven-assembly-plugin`:
 
-```
+```shell
 # This assume you previously built the image with -Pjlink-image
 mvn package -Pjlink-zip
 ```
