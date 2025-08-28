@@ -25,12 +25,19 @@ langchain4j:
       # Lc4j demo key needs to be routed over lc4j proxy
       base-url: "http://langchain4j.dev/demo/openai/v1"
       api-key: "demo"
+  coherence:
+    embedding-store:
+      enabled: true
+      name: "menu"
+      index: "hnsw"
+      dimension: 768
   rag:
     embedding-store-content-retriever:
       enabled: true
       max-results: 10
       min-score: 0.6
+      # this is how you tell our RAG integration to use coherence embedding store
       embedding-store:
-        service-registry.named: "EmbeddingStore"
+        service-registry.named: coherence
 app:
   menu-items: "data/menu.json"

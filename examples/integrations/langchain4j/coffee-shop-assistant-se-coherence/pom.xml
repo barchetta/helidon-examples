@@ -22,24 +22,42 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.helidon.applications</groupId>
-        <artifactId>helidon-mp</artifactId>
+        <artifactId>helidon-se</artifactId>
         <version>4.3.0-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
     <groupId>io.helidon.examples.integrations.langchain4j</groupId>
-    <artifactId>helidon-examples-integrations-langchain4j-coffee-shop-assistant-mp</artifactId>
+    <artifactId>helidon-examples-integrations-langchain4j-coffee-shop-assistant-se-coherence</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <name>Helidon Examples Integration LangChain4j Coffee Shop Assistant MP</name>
+    <name>Helidon Examples Integration LangChain4j Coffee Shop Assistant SE using Coherence Embedding Store</name>
 
     <description>
-        An advanced example of LangChain4j integration in Helidon MP
+        Basic illustration of LangChain4j integration in Helidon SE using Coherence Embedding Store
     </description>
 
     <properties>
-        <mainClass>io.helidon.Main</mainClass>
+        <mainClass>io.helidon.examples.integrations.langchain4j.se.coffee.shop.assistant.ApplicationMain</mainClass>
+        <version.lib.coherence>25.03.1</version.lib.coherence>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
+                <version>${version.lib.langchain4j}</version>
+            </dependency>
+                <dependency>
+                    <groupId>com.oracle.coherence.ce</groupId>
+                    <artifactId>coherence-bom</artifactId>
+                    <version>${version.lib.coherence}</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+            </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -51,12 +69,40 @@
             <artifactId>helidon-integrations-langchain4j-providers-open-ai</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.helidon.integrations.langchain4j.providers</groupId>
+            <artifactId>helidon-integrations-langchain4j-providers-coherence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-coherence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.coherence.ce</groupId>
+            <artifactId>coherence-hnsw</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.coherence.ce</groupId>
+            <artifactId>coherence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.webserver</groupId>
+            <artifactId>helidon-webserver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.http.media</groupId>
+            <artifactId>helidon-http-media-jsonb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.config</groupId>
+            <artifactId>helidon-config-yaml</artifactId>
+        </dependency>
+        <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-embeddings-all-minilm-l6-v2-q</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.helidon.microprofile.bundles</groupId>
-            <artifactId>helidon-microprofile</artifactId>
+            <groupId>io.helidon.integrations.db</groupId>
+            <artifactId>ojdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.helidon.logging</groupId>
@@ -69,6 +115,11 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>io.helidon.webserver.testing.junit5</groupId>
+            <artifactId>helidon-webserver-testing-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
@@ -76,11 +127,6 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.helidon.microprofile.testing</groupId>
-            <artifactId>helidon-microprofile-testing-junit5</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
