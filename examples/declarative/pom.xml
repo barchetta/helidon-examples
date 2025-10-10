@@ -33,5 +33,6 @@
 
     <modules>
         <module>server</module>
+        <module>data</module>
     </modules>
 </project>
