@@ -80,7 +80,7 @@ mvn ${MAVEN_ARGS} --version
 echo "Building Helidon version ${HELIDON_VERSION} from Helidon repo branch ${HELIDON_BRANCH}"
 
 # shellcheck disable=SC2086
-mvn ${MAVEN_ARGS} -T8 \
+mvn ${MAVEN_ARGS} \
   -f helidon/pom.xml \
   -DskipTests \
   -Dmaven.test.skip=true \
